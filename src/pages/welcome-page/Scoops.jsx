@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Card from "../../components/Card";
 
 const Scoops = () => {
   const [cesitler, setCesitler] = useState([]);
+  const [sepet, setSepet] = useState([]);
   useEffect(() => {
     axios
       .get("http://localhost:3030/cesitler")
@@ -15,38 +17,39 @@ const Scoops = () => {
       });
   }, []);
 
+  //SIFIRLAMA ISLEMI
+  const handleReset = (param) => {
+    const reseted = sepet.filter((i) => i.name !== param.name);
+    setSepet(reseted);
+  };
+  //ADET BULMA FONK.
+  const findAmount = (param) => {
+    const bulundu = sepet.filter((i) => i.name === param.name);
+    return bulundu.length;
+  };
+
   return (
-    <>
+    <div className="container">
       <h1 className="text-start">Dondurma Cesitleri</h1>
       <p className="text-start">Tanesi $3</p>
       <h2 className="text-start">Cesitler Ücreti: 0</h2>
       <div className="row d-flex gap-7 p-4 justify-content-around">
         {cesitler.map((cesit) => {
+          const adet = findAmount(cesit);
           return (
-            <>
-              <div
-                className="col-3 d-flex flex-column aling-items-center"
-                style={{ width: "200px" }}
-              >
-                <img
-                  id={cesit.name}
-                  className="w-100"
-                  src={cesit.imagePath}
-                  alt="cesit"
-                />
-                {/*TODO ALT TAG*/}
-                <label className="lead">{cesit.name}</label>
-                <div className="d-flex gap-1 align-items-center justify-content-center mt-2">
-                  <button className="btn btn-danger">Reset</button>
-                  <span className="lead">0</span>
-                  <button className="btn btn-success">Add</button>
-                </div>
-              </div>
-            </>
+            <Card
+              key={cesit.name}
+              cesit={cesit}
+              findAmount={findAmount}
+              handleReset={handleReset}
+              adet={adet}
+              sepet={sepet}
+              setSepet={setSepet}
+            />
           );
         })}
       </div>
-    </>
+    </div>
   );
 };
 
