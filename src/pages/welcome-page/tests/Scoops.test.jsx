@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { userEvent } from "@testing-library/user-event/dist/types/setup";
+import userEvent from "@testing-library/user-event";
 import Scoops from "../Scoops";
 
 /*!SECICILER
@@ -24,13 +24,14 @@ test("Dondurma cesitlerinde ekleme ve sifirlama islemi", async () => {
   const user = userEvent.setup();
 
   //gerekli elemanlari alim
-  const toplamH1 = screen.getByRole("heading", { name: /Cesitler Ucreti/i });
+  const toplamH1 = screen.getByRole("heading", { name: /Cesitler Ücreti/i });
 
   //ekte buttonlarini cekme
 
   const ekleBtns = await screen.findAllByRole("button", { name: /ekle/i });
 
   //Sifirlama butonlarini cekme
+
   const delBtns = await screen.findAllByRole("button", { name: /Sifirla/i });
 
   //Ekleme islemlei ve kontrolü

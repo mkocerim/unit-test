@@ -32,7 +32,7 @@ const Scoops = () => {
     <div className="container">
       <h1 className="text-start">Dondurma Cesitleri</h1>
       <p className="text-start">Tanesi $3</p>
-      <h2 className="text-start">Cesitler Ücreti: 0</h2>
+      <h2 className="text-start">Cesitler Ücreti: ${sepet.length * 3}</h2>
       <div className="row d-flex gap-7 p-4 justify-content-around">
         {cesitler.map((cesit) => {
           const adet = findAmount(cesit);
